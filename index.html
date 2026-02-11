@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Eternal Promises ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --royal: #2d0b3d;
+            --soft: #fdfaf5;
+        }
+
+        body {
+            margin: 0; background: var(--royal);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* Animated Background Stars */
+        #stars-container {
+            position: fixed; width: 100%; height: 100%; z-index: 1;
+        }
+
+        .container {
+            background: var(--soft);
+            padding: 50px; border-radius: 5px;
+            border: 8px double var(--gold);
+            text-align: center; z-index: 10;
+            max-width: 450px; width: 85%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 { 
+            font-family: 'Cinzel', serif; color: var(--royal); 
+            font-size: 1.8rem; margin-top: 0;
+        }
+
+        .cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem; color: var(--gold);
+            display: block; margin-bottom: 20px;
+        }
+
+        .promise-box {
+            background: #fff; border-left: 5px solid var(--gold);
+            padding: 20px; margin: 20px 0;
+            font-style: italic; min-height: 80px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .btn {
+            background: var(--royal); color: var(--gold);
+            padding: 15px 30px; border: 2px solid var(--gold);
+            font-weight: bold; cursor: pointer;
+            letter-spacing: 2px; text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: var(--gold); color: var(--royal); }
+
+        #finalSeal { display: none; opacity: 0; }
+        
+        /* Floating Rings */
+        .ring {
+            position: absolute; pointer-events: none;
+            opacity: 0.3; z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div class="container" id="card">
+        <div id="intro">
+            <span class="cursive">Promise Day 2026</span>
+            <h1>A Vow To My Miss.SULANIA Ji</h1>
+            <p>I don't just want to promise you the world; I want to promise you my heart, my time, and my soul.</p>
+            <button class="btn" onclick="revealPromises()">READ MY VOWS</button>
+        </div>
+
+        <div id="vows" style="display:none; opacity:0;">
+            <span class="cursive">I Promise...</span>
+            <div class="promise-box" id="promiseText"></div>
+            <button class="btn" id="nextBtn" onclick="nextPromise()">NEXT PROMISE</button>
+        </div>
+
+        <div id="finalSeal">
+            <span class="cursive">Forever & Always</span>
+            <h1>PROMISE KEPT ❤️</h1>
+            <p>Happy Promise Day, my PRINCESS MERA PYARA BACHHA . Our bond is my biggest achievement.</p>
+            <div style="font-size: 40px; margin-top: 15px;">💍✨🤝</div>
+        </div>
+    </div>
+
+    <script>
+        const myVows = [
+            "I promise to always be your biggest supporter and your best friend.",
+            "I promise to listen even when you don't speak a word.",
+            "I promise to keep our home filled with laughter and love.",
+            "I promise to choose you every single day, over and over again."
+        ];
+
+        let currentVow = 0;
+
+        // Background Stars
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.style.position = 'absolute';
+            star.style.width = '2px'; star.style.height = '2px';
+            star.style.background = 'white';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.opacity = Math.random();
+            document.getElementById('stars-container').appendChild(star);
+        }
+
+        function revealPromises() {
+            gsap.to("#intro", { opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('intro').style.display = 'none';
+                document.getElementById('vows').style.display = 'block';
+                gsap.to("#vows", { opacity: 1, duration: 0.5 });
+                nextPromise();
+            }});
+        }
+
+        function nextPromise() {
+            if (currentVow < myVows.length) {
+                const box = document.getElementById('promiseText');
+                gsap.to(box, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+                    box.innerText = myVows[currentVow++];
+                    gsap.to(box, { opacity: 1, scale: 1, duration: 0.5 });
+                }});
+            } else {
+                showSeal();
+            }
+        }
+
+        function showSeal() {
+            gsap.to("#vows", { opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('vows').style.display = 'none';
+                document.getElementById('finalSeal').style.display = 'block';
+                gsap.to("#finalSeal", { opacity: 1, duration: 1 });
+                spawnRings();
+            }});
+        }
+
+        function spawnRings() {
+            setInterval(() => {
+                const ring = document.createElement('div');
+                ring.classList.add('ring');
+                ring.innerHTML = '💍';
+                ring.style.left = Math.random() * 100 + 'vw';
+                ring.style.top = '110vh';
+                ring.style.fontSize = Math.random() * 20 + 20 + 'px';
+                document.body.appendChild(ring);
+                
+                gsap.to(ring, {
+                    y: '-120vh',
+                    rotation: 360,
+                    duration: Math.random() * 3 + 3,
+                    onComplete: () => ring.remove()
+                });
+            }, 400);
+        }
+    </script>
+</body>
+</html>
